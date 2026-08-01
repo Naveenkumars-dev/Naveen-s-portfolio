@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import CustomCursor from "./components/CustomCursor";
-import AmbientBackground from "./components/AmbientBackground";
+import VantaWaves from "./components/VantaWaves";
 import ScrollProgressBar from "./components/ScrollProgressBar";
 import Navbar from "./components/Navbar";
 import CommandPalette from "./components/CommandPalette";
@@ -47,7 +47,7 @@ export default function App() {
     <>
       {loading && <LoadingScreen onDone={() => setLoading(false)} />}
       <CustomCursor />
-      <AmbientBackground />
+      <VantaWaves />
       <ScrollProgressBar />
       <Navbar onOpenPalette={() => setPaletteOpen(true)} />
 

@@ -6,7 +6,6 @@ import { useParallax } from "../hooks/useParallax";
 import { use3DTilt } from "../hooks/use3DTilt";
 import { useEffect, useState } from "react";
 import profilePhoto from "../assets/naveenkumar-profile.png";
-import PremiumTechBackground from "../components/3d/PremiumTechBackground";
 
 export default function Hero() {
   const typed = useTypingEffect(typingRoles);
@@ -64,7 +63,6 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative flex min-h-screen items-center px-6 pt-28 pb-16 sm:px-10">
-      <PremiumTechBackground />
       <div className="mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,400px)] lg:gap-10">
         <motion.div
           variants={containerVariants}
