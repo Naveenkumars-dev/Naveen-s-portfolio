@@ -89,7 +89,8 @@ export function useMagneticFloat(options: MagneticFloatOptions = {}) {
       window.removeEventListener('mousemove', handleMouseMove);
       element.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [floatStrength, magneticStrength, parallaxStrength, floatOffset]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [floatStrength, magneticStrength, parallaxStrength]);
 
   return {
     ref,

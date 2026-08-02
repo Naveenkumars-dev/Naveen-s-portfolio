@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type RefObject } from 'react';
+import { useState, useRef, useEffect, useCallback, type RefObject } from 'react';
 
 interface TiltOptions {
   max: number;
@@ -22,7 +22,7 @@ export function use3DTilt(options: Partial<TiltOptions> = {}): {
   const ref = useRef<HTMLDivElement | null>(null);
   const [transform, setTransform] = useState('');
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
@@ -38,13 +38,13 @@ export function use3DTilt(options: Partial<TiltOptions> = {}): {
     setTransform(
       `perspective(${perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale}, ${scale}, ${scale})`
     );
-  };
+  }, [max, perspective, scale]);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setTransform(
       `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`
     );
-  };
+  }, [perspective]);
 
   const reset = () => {
     setTransform(
@@ -65,7 +65,7 @@ export function use3DTilt(options: Partial<TiltOptions> = {}): {
         currentRef.removeEventListener('mouseleave', handleMouseLeave);
       }
     };
-  }, [max, perspective, scale]);
+  }, [max, perspective, scale, handleMouseMove, handleMouseLeave]);
 
   return {
     ref,

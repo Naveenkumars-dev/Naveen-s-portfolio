@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import SectionHeading from "../components/SectionHeading";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { use3DTilt } from "../hooks/use3DTilt";
 import { useMagneticFloat } from "../hooks/useMagneticFloat";
-import { useState, useEffect } from "react";
 import aboutPhoto from "../assets/image.png";
 
 const stats = [
@@ -16,26 +14,12 @@ const stats = [
 
 export default function About() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
-  const [isMobile, setIsMobile] = useState(false);
-  const { ref: tiltRef, style: tiltStyle } = use3DTilt({
-    max: 10,
-    perspective: 1000,
-    scale: 1.02,
-    speed: 300,
-  });
   const { ref: magneticRef, glowPosition, isHovering, glowIntensity } = useMagneticFloat({
     floatStrength: 8,
     magneticStrength: 0.25,
     parallaxStrength: 0.03,
     glowIntensity: 0.7,
   });
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   return (
     <motion.section 
@@ -58,7 +42,7 @@ export default function About() {
         >
           <motion.div
             ref={magneticRef}
-            style={!isMobile ? { perspective: "1000px" } : { perspective: "1000px" }}
+
             initial={{ opacity: 0, rotate: -6, scale: 0.9 }}
             animate={isVisible ? { 
               opacity: 1, 
@@ -91,6 +75,7 @@ export default function About() {
             }}
             className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,180,216,0.15)]"
             style={{
+              perspective: "1000px",
               backdropFilter: "blur(10px)",
               background: "rgba(255, 255, 255, 0.05)",
               border: isHovering ? "2px solid rgba(0, 180, 216, 0.6)" : "2px solid rgba(0, 180, 216, 0.3)",
